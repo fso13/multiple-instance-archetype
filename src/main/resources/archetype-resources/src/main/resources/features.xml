@@ -1,0 +1,14 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<features name="${symbol_dollar}{project.groupId}" xmlns="http://karaf.apache.org/xmlns/features/v1.3.0">
+
+    <feature name='${symbol_dollar}{project.artifactId}' version='${symbol_dollar}{project.version}'>
+        <feature version="[${symbol_dollar}{spring.version},4.0.0)">spring</feature>
+        <feature>spring-dm</feature>
+        <bundle>mvn:${symbol_dollar}{project.groupId}/${symbol_dollar}{project.artifactId}/${symbol_dollar}{project.version}</bundle>
+        <config name="${symbol_dollar}{osgi.configName}"/>
+    </feature>
+
+</features>
