@@ -1,30 +1,56 @@
-# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
-# For more information see: https://github.com/actions/setup-java#apache-maven-with-a-settings-path
-
-name: Maven Package
-
+# This GitHub Action workflow is triggered by a git tag being pushed where the tag name starts with 'v'.
+# The workflow runs two jobs:
+# - create a GitHub Release from the git tag, using RELEASE-NOTES-NEXT.md as the relese notes
+# - build a package using Maven and then publish it to GitHub packages
 on:
-  release:
-    types: [created]
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - '*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+
+name: Create Release and Publish to GitHub Packages
 
 jobs:
   build:
-
+    # See https://github.com/actions/create-release
+    name: Create GitHub Release
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ami ${{ github.ref }}
+          body_path: README.md
+          #          body: |
+          #            Changes in this Release
+          #            - First Change
+          #            - Second Change
+          draft: false
+          prerelease: false
 
+  publish:
+    # See: https://github.com/actions/setup-java#publishing-using-apache-maven
+    # See: https://docs.github.com/en/actions/language-and-framework-guides/publishing-java-packages-with-maven#publishing-packages-to-github-packages
+    name: Publish to GitHub packages
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 1.8
-      uses: actions/setup-java@v1
+      uses: actions/setup-java@v1 # installs the JDK, and generates a Maven settings.xml for publishing the package to GitHub Packages
+      # creating settings.xml with server-id: github; environment variables: username=$GITHUB_ACTOR, password=$GITHUB_TOKEN, and gpg-passphrase=null
+      # See: https://github.com/actions/setup-java
       with:
         java-version: 1.8
-        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-        settings-path: ${{ github.workspace }} # location for the settings.xml file
-
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
 
     - name: Publish to GitHub Packages Apache Maven
-      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+      #run: mvn --debug -DskipTests -B deploy # use this when troubleshooting
+      run: mvn -DskipTests -B deploy -s $GITHUB_WORKSPACE/settings.xml
       env:
         GITHUB_TOKEN: ${{ github.token }}
