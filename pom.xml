@@ -33,4 +33,12 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>GitHubPackages</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/fso13/multiple-instance-archetype</url>
+        </repository>
+    </distributionManagement>
 </project>
