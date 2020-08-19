@@ -1,7 +1,7 @@
-##multiple-instance-archetype
-#####Этот archetype генерирует multiple instance проект.
+## multiple-instance-archetype
+##### Этот archetype генерирует multiple instance проект.
 
-#####Команда генерации:
+##### Команда генерации:
 
 ```bash
 mvn archetype:generate \
