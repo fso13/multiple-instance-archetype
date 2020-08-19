@@ -4,7 +4,7 @@
 
     <groupId>ru.drudenko.osgi</groupId>
     <artifactId>multiple-instance-archetype</artifactId>
-    <version>3.2.14</version>
+    <version>3.2.15</version>
     <packaging>maven-archetype</packaging>
 
     <name>multiple-instance-archetype</name>

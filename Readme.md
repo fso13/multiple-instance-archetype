@@ -7,7 +7,7 @@
 mvn archetype:generate \
 	  -DarchetypeGroupId=ru.drudenko.osgi \
 	  -DarchetypeArtifactId=multiple-instance-archetype \
-	  -DarchetypeVersion=3.2.14 \
+	  -DarchetypeVersion=3.2.15 \
 	  -DgroupId=org.example \
 	  -DartifactId=simpleapp \
 	  -Dversion=1.0.0-SNAPSHOT
