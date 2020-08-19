@@ -34,10 +34,24 @@
         </pluginManagement>
     </build>
 
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+        <repository>
+            <id>github</id>
+            <name>GitHub fso13 Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/fso13/multiple-instance-archetype</url>
+        </repository>
+    </repositories>
+
     <distributionManagement>
         <repository>
-            <id>GitHubPackages</id>
-            <name>GitHub Packages</name>
+            <id>github</id>
+            <name>GitHub fso13 Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/fso13/multiple-instance-archetype</url>
         </repository>
     </distributionManagement>
